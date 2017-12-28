@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+ </head>
+ <body>
+
+   <div class="container">
+     <div id="locations-menu">
+       <h1>Stockholm Center</h1>
+       <form class="filter-form container">
+         <input type="text" id="filter-input"
+                data-bind="textInput: searchQuery, event: {keyup: filterList}"
+                placeholder="Search locations">
+         <button type="button" id="filter-btn">Filter</button>
+       </form>
+       <!-- list items in this ul should have class ".loc-item" -->
+       <ul id="locations-list" data-bind="foreach: locationList">
+         <li class="loc-item" data-bind="text: title"></li>
+       </ul>
+     </div>
+     <div id="map"></div>
+   </div>
+
+   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+   <script type="text/javascript" src="js/knockout-3.4.2.js"></script>
+   <script type="text/javascript" src="js/main.js"></script>
+   <!-- Google Maps API: will call back initMap() from main.js once downloaded -->
+   <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTiLmx4zT-eNxs2ERAaDIRjiQ98JpcWeQ&v=3&callback=initMap">
+    </script>
+ </body>
+</html>
