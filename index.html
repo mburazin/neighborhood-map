@@ -20,7 +20,7 @@
        </form>
        <!-- list items in this ul should have class ".loc-item" -->
        <ul id="locations-list" data-bind="foreach: locationList">
-         <li class="loc-item" data-bind="text: title"></li>
+         <li class="loc-item" data-bind="text: title, click: $parent.selectLocation"></li>
        </ul>
      </div>
      <div id="map"></div>
@@ -31,7 +31,7 @@
    <script type="text/javascript" src="js/main.js"></script>
    <!-- Google Maps API: will call back initMap() from main.js once downloaded -->
    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTiLmx4zT-eNxs2ERAaDIRjiQ98JpcWeQ&v=3&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDTiLmx4zT-eNxs2ERAaDIRjiQ98JpcWeQ&v=3&callback=viewModel.initMap">
     </script>
  </body>
 </html>
