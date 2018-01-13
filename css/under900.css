@@ -1,0 +1,58 @@
+.menu {
+  display: block;
+  font-size: 2em;
+  text-align: right;
+}
+
+#top-bar {
+  /*display: block;*/
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: hand;
+  display: block;
+}
+
+.top-heading {
+  flex-grow: 1;
+  margin: 0;
+  font-size: 1.5em;
+  text-align: right;
+}
+
+.close-menu {
+  display: block;
+}
+
+@keyframes slidefromleft {
+  from {
+    left: -300px;
+    opacity: 0; }
+  to {
+    left:0;
+    opacity:1;
+  }
+}
+
+.locations-menu {
+  position: fixed;
+  width: 200px;
+  z-index: 2;
+  animation: slidefromleft 0.4s;
+  display: none;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
+}
+
+.shown {
+  display: block;
+}
+
+#map {
+  width: 100%;
+  height: calc(100% - 45px); /* 100% - height(#top-bar) */
+}
