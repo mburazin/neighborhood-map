@@ -1,8 +1,8 @@
 # Neighborhood Map
 Neighborhood Map is a single page application developed for the Udacity Frontend
-Web Developer course.
+Web Developer Nanodegree course.
 It features a filterable list of locations to visit in central Stockholm with
-relevant information about each location displayed on the Google Map. The information that is displayed is fetched from the Foursquare API.
+relevant information about each location displayed on the Google Map. The information that is displayed is fetched from [Foursquare](https://www.foursquare.com) using the Foursquare API.
 
 ## How to use the application
 1) Either open the `index.html` file locally in your web browser or navigate to the  [online version of the page](https://mburazin.github.io/neighborhood-map).
@@ -32,3 +32,4 @@ This project is licensed under the terms of the MIT license. For more informatio
 - Foursquare API - https://developer.foursquare.com/
 - JQuery - https://jquery.com/
 - Knockout JS - http://knockoutjs.com/
+- Udacity FEND Nanodegree - https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001
