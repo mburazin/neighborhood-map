@@ -1,34 +1,49 @@
-.menu {
-  display: block;
-  font-size: 2em;
-  text-align: right;
-}
-
+/* Top bar styles */
 #top-bar {
-  /*display: block;*/
   display: -webkit-flex;
   display: flex;
+  width: 100%;
+  padding: 10px;
   align-items: center;
-}
-
-.menu-button {
-  font-size: 1.2em;
-  font-weight: bold;
-  cursor: hand;
-  display: block;
+  border-bottom: 2px solid #888;
+  background-color: #CCC;
 }
 
 .top-heading {
-  flex-grow: 1;
   margin: 0;
+  flex-grow: 1;
   font-size: 1.5em;
   text-align: right;
 }
 
-.close-menu {
-  display: block;
+
+/* Google Map container */
+#map {
+  width: 100%;
+  height: calc(100% - 45px); /* 100% - height(#top-bar) */
 }
 
+
+/* Styles for sliding pane containing locations list */
+#close-button {
+    cursor: pointer;
+}
+
+.menu-button {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-menu {
+  display: block;
+  padding: 0 10px 0 0;
+  text-align: right;
+  font-size: 36px;
+}
+
+/* Amimation for sliding locations menu */
 @keyframes slidefromleft {
   from {
     left: -300px;
@@ -40,19 +55,16 @@
 }
 
 .locations-menu {
+  display: none; /* changes to block when user clicks the hamburger icon */
   position: fixed;
+  height: 100%;
   width: 200px;
   z-index: 2;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
   animation: slidefromleft 0.4s;
-  display: none;
-  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
 }
 
+/* .shown is set by Knockout JS to show/hide sliding pane with locations */
 .shown {
   display: block;
-}
-
-#map {
-  width: 100%;
-  height: calc(100% - 45px); /* 100% - height(#top-bar) */
 }

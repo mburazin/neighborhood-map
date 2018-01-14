@@ -2,8 +2,9 @@
   var map;
   var markers = [];
   var infoWindow;
-  var foursquareVenueCallback = null;
 
+  // init function is triggered from ViewModel after the Google Maps API script
+  // is downloaded
   function init(locations) {
     // create a new map
     map = new google.maps.Map(document.getElementById('map'), {
@@ -31,6 +32,7 @@
         if (infoWindow.marker == this) {
           console.log("This infowindow already is on this marker!");
         } else {
+          // select the location by going through the ViewModel
           viewModel.selectLocationByName(this.title);
         }
       });
@@ -42,6 +44,39 @@
     });
 
     filterLocations();
+  }
+
+  // Display only the markers corresponding to the applied filter
+  function filterLocations(filter = "") {
+    for (var i = 0; i < markers.length; i++) {
+      var titleLowerCase = markers[i].getTitle().toLowerCase();
+      var filterLowerCase = filter.toLowerCase();
+      if (titleLowerCase.startsWith(filterLowerCase)) {
+        markers[i].setMap(map);
+      } else {
+        markers[i].setMap(null);
+      }
+    }
+  }
+
+  // selects location and display its information provided in the foursquareInfo
+  // variable
+  function selectLocation(foursquareInfo) {
+    var marker = _findMarker(foursquareInfo.locationTitle);
+    if (marker) {
+      _showLocationInfo(marker, foursquareInfo);
+    }
+  }
+
+  // find the marker with the given location title which it points to
+  function _findMarker(locationTitle) {
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i].getTitle() == locationTitle) {
+        return markers[i];
+      }
+    }
+
+    return null;
   }
 
   // fetch unique place ID of which marker is pointing to and assign it
@@ -68,6 +103,8 @@
       _closeInfoWindow(infoWindow);
     }
 
+    // open the InfoWindow on the marker an show location Info inside
+    // and animate the marker
     var locationInfoHtml = _formatLocationInfo(foursquareInfo);
     infoWindow.setContent(locationInfoHtml);
     infoWindow.marker = marker;
@@ -80,6 +117,14 @@
     infoWindow.addListener('closeclick', function() {
       _closeInfoWindow(infoWindow);
     });
+  }
+
+  // closes opened InfoWindow on the marker
+  function _closeInfoWindow(infoWindow) {
+    _stopAnimateMarker(infoWindow.marker);
+    infoWindow.setContent('');
+    infoWindow.close();
+    infoWindow.marker = null;
   }
 
   // construct html shown in infoWindow related to the selected location
@@ -113,18 +158,11 @@
     var photos = locationInfo.photos;
     if (photos && photos.count>0) {
       // take just the first photo
-      innerHTML += '<br><br><img src="' + photos.groups[0].items[0].prefix + '300x200'
-        + photos.groups[0].items[0].suffix + '">';
+      innerHTML += '<br><br><img src="' + photos.groups[0].items[0].prefix + '200x100' +
+        photos.groups[0].items[0].suffix + '" + alt="Location photo">';
     }
 
     return innerHTML;
-  }
-
-  function _closeInfoWindow(infoWindow) {
-    _stopAnimateMarker(infoWindow.marker);
-    infoWindow.setContent('');
-    infoWindow.close();
-    infoWindow.marker = null;
   }
 
   function _animateMarker(marker) {
@@ -135,35 +173,6 @@
     marker.setAnimation(null);
   }
 
-  function filterLocations(filter = "") {
-    // Display only the markers corresponding to the applied filter
-    for (var i = 0; i < markers.length; i++) {
-      var titleLowerCase = markers[i].getTitle().toLowerCase();
-      var filterLowerCase = filter.toLowerCase();
-      if (titleLowerCase.startsWith(filterLowerCase)) {
-        markers[i].setMap(map);
-      } else {
-        markers[i].setMap(null);
-      }
-    }
-  }
-
-  function selectLocation(foursquareInfo) {
-    var marker = _findMarker(foursquareInfo.locationTitle);
-    if (marker) {
-      _showLocationInfo(marker, foursquareInfo);
-    }
-  }
-
-  function _findMarker(locationTitle) {
-    for (var i = 0; i < markers.length; i++) {
-      if (markers[i].getTitle() == locationTitle) {
-        return markers[i];
-      }
-    }
-
-    return null;
-  }
 
   window.GoogleMap = {
     init: init,

@@ -1,10 +1,10 @@
-/* Model */
+/* Model used for Knockout JS */
 var Location = function(data) {
   this.title = ko.observable(data.title);
   this.location = ko.observable(data.location);
 };
 
-/* ViewModel */
+/* ViewModel used for Knockout JS */
 var ViewModel = function() {
   var self = this;
   this.locationList = ko.observableArray();
@@ -36,39 +36,32 @@ var ViewModel = function() {
     });
   };
 
-  // triggered when the location list item is clicked
-  this.selectLocation = function(location) {
-    Foursquare.getLocationInfo(location.title(), location.location(), self.fetchedFoursquareInfo);
-  };
-
   // triggered when the hamburger icon is clicked
   this.showLocationsMenu = function() {
-    console.log("show");
     this.locMenuShown(true);
     console.log(this.locMenuShown());
   };
 
   // triggered when the close menu icon (x) is clicked
   this.hideLocationsMenu = function() {
-    console.log("hide");
     this.locMenuShown(false);
     console.log(this.locMenuShown());
   };
 
   // when Google Maps API is downloaded, change the googleMapApiLoaded observable
   this.initMap = function() {
-    console.log("initMap triggered");
     this.googleMapApiLoaded(true);
   };
 
   // subscribe function to be triggered when Google Maps API is loaded
   this.googleMapApiLoaded.subscribe(function(isLoaded) {
-    console.log("isLoaded");
     if (isLoaded) {
       GoogleMap.init(locations);
     }
   });
 
+  // this callback is performed from googleMap object signalling to select a
+  // specific location after the user has clicked on it on the map
   this.selectLocationByName = function(name) {
     // store found location. If not found, location is undefined
     var location = self.locationList().find(function(element) {
@@ -83,7 +76,12 @@ var ViewModel = function() {
     } else {
       alert("Unknown location. Critical error!");
     }
-  }
+  };
+
+  // triggered when the location list item is clicked
+  this.selectLocation = function(location) {
+    Foursquare.getLocationInfo(location.title(), location.location(), self.fetchedFoursquareInfo);
+  };
 
   // this callback is performed after Foursquare answers to the getLocationInfo query
   this.fetchedFoursquareInfo = function(locationInfo) {
@@ -99,9 +97,10 @@ var ViewModel = function() {
       self.foursquareLocationInfo = {};
       self.foursquareInfoReceived(false);
     }
-  })
+  });
 };
 
+// Create new Knockout JS ViewModel
 viewModel = new ViewModel();
 ko.applyBindings(viewModel);
 
