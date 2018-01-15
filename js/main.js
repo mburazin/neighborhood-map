@@ -106,11 +106,10 @@ ko.applyBindings(viewModel);
 
 // Called as soon as Google Map API script loads
 function initMap() {
-  clearTimeout(mapsTimeout);
   viewModel.initMap();
 }
 
-// timeout if google maps api isn't reachable
-mapsTimeout = setTimeout(function() {
+// alert error if google maps api isn't reachable
+googleMapsApiError = function() {
   alert("Google Maps API not reachable! Could not load map!");
-}, 2000);
+};

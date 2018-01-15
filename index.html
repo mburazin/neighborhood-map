@@ -15,12 +15,12 @@
 
    <div class="page-container">
      <!-- top-bar only visible on mobile -->
-     <div id="top-bar">
+     <header id="top-bar">
        <span class="menu-button" data-bind="click: showLocationsMenu">☰</span>
        <h1 class="top-heading">Stockholm Center</h1>
-     </div>
+     </header>
 
-     <div class="locations-menu" data-bind="css: { shown: locMenuShown()}">
+     <aside class="locations-menu" data-bind="css: { shown: locMenuShown()}">
        <div class="close-menu"><span id="close-button" data-bind="click: hideLocationsMenu">×</span></div>
        <div class="attribution"><span>Location info by <a href="https://www.foursquare.com/">Foursquare</a></span></div>
        <div class="attribution"><span>Map by <a href="https://maps.google.com">Google Maps</a></span></div>
@@ -34,10 +34,10 @@
        <ul class="locations-list" data-bind="foreach: locationList">
          <li class="loc-item" data-bind="text: title, click: $parent.selectLocation"></li>
        </ul>
-     </div>
+     </aside>
 
      <!-- Placeholder for Google Map -->
-     <div id="map"></div>
+     <main id="map"></main>
    </div>
 
    <script src="js/jquery-3.2.1.min.js"></script>
@@ -48,7 +48,8 @@
    <script src="js/main.js"></script>
    <!-- Google Maps API: will call back initMap() from main.js once downloaded -->
    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDTiLmx4zT-eNxs2ERAaDIRjiQ98JpcWeQ&v=3&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDTiLmx4zT-eNxs2ERAaDIRjiQ98JpcWeQ&v=3&callback=initMap"
+      onerror="googleMapsApiError()">
     </script>
  </body>
 </html>
